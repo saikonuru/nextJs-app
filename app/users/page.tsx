@@ -1,14 +1,26 @@
+import Link from "next/link";
 import UsersTable from "./UsersTable";
 
-const UsersPage = async () => {
+interface Props {
+  params: { id: number };
+  searchParams: { sortOrder: string };
+}
+
+const UserPage = ({ params: { id }, searchParams: { sortOrder } }: Props) => {
   return (
     <div>
+      User Details Page :{id} <br />
+      {/* Sort by :{" "}
+      {sortOrder
+        ? sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)
+        : "Name"} */}
       <br />
-      Users Page
-      <br />
-      <UsersTable />
+      <Link href="/users/new" className="btn">
+        New User
+      </Link>
+      <UsersTable sortBy={sortOrder} />
     </div>
   );
 };
 
-export default UsersPage;
+export default UserPage;

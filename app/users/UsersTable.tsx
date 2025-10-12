@@ -11,10 +11,19 @@ interface User {
 
 interface Props {
   sortBy: string;
-  id: number;
 }
 
-const UsersTable = async ({ sortBy, id }: Props) => {
+const columns: { label: string; value: keyof User }[] = [
+  { label: "Name", value: "name" },
+  { label: "Email", value: "email" },
+  { label: "First Name", value: "firstName" },
+  { label: "Last Name", value: "lastName" },
+];
+
+const validSortKeys = columns.map((column) => column.value);
+const defaultSortKey: keyof User = "name";
+
+const UsersTable = async ({ sortBy }: Props) => {
   const res = await fetch("https://dummyjson.com/users", {
     cache: "no-store",
     // next: { revalidate: 10 },
@@ -25,24 +34,23 @@ const UsersTable = async ({ sortBy, id }: Props) => {
     name: `${user.firstName} ${user.lastName}`,
   }));
 
-  const sortedUsers = sort(users).asc(sortBy as keyof User);
+  const sortKey = validSortKeys.includes(sortBy as keyof User)
+    ? (sortBy as keyof User)
+    : defaultSortKey;
+
+  const sortedUsers = sort(users).asc(sortKey);
 
   return (
     <table className="table table-bordered">
       <thead>
         <tr>
-          <th>
-            <Link href={`/users/${id}?sortOrder=name`}>Name</Link>
-          </th>
-          <th>
-            <Link href={`/users/${id}?sortOrder=email`}>Email</Link>
-          </th>
-          <th>
-            <Link href={`/users/${id}?sortOrder=firstName`}>First Name</Link>
-          </th>
-          <th>
-            <Link href={`/users/${id}?sortOrder=lastName`}>Last Name</Link>
-          </th>
+          {columns.map((column) => (
+            <th key={column.value}>
+              <Link href={`/users/?sortOrder=${column.value}`}>
+                {column.label}
+              </Link>
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
