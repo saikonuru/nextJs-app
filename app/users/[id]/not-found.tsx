@@ -1,5 +1,5 @@
 const PageNotFound = () => {
-  return <div>The requested User doesn't exists</div>;
+  return <div>The requested User does not exists</div>;
 };
 
 export default PageNotFound;
