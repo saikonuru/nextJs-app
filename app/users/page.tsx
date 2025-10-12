@@ -6,10 +6,10 @@ interface Props {
   searchParams: { sortOrder: string };
 }
 
-const UserPage = ({ params: { id }, searchParams: { sortOrder } }: Props) => {
+const UsersPage = ({ params: { id }, searchParams: { sortOrder } }: Props) => {
   return (
     <div>
-      User Details Page :{id} <br />
+      Users Page :{id} <br />
       {/* Sort by :{" "}
       {sortOrder
         ? sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)
@@ -18,9 +18,11 @@ const UserPage = ({ params: { id }, searchParams: { sortOrder } }: Props) => {
       <Link href="/users/new" className="btn">
         New User
       </Link>
+      {/* <Suspense fallback={<p>Loading...</p>}> */}
       <UsersTable sortBy={sortOrder} />
+      {/* </Suspense> */}
     </div>
   );
 };
 
-export default UserPage;
+export default UsersPage;
