@@ -3,9 +3,9 @@ import schema from "./schema";
 
 export function GET(request: NextRequest) {
   return NextResponse.json([
-    { id: 1, name: "Sai" },
-    { id: 2, name: "Ram" },
-    { id: 3, name: "Konuru" },
+    { id: 1, name: "Milk", price: 5 },
+    { id: 2, name: "Bread", price: 10 },
+    { id: 3, name: "Chocolate", price: 15 },
   ]);
 }
 
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
   }
 
   return NextResponse.json(
-    { id: 1, name: body.name.toUpperCase() },
+    { id: 4, name: body.name.toUpperCase(), price: body.price },
     { status: 201 }
   );
 }

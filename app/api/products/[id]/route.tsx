@@ -5,9 +5,9 @@ export function GET(
   request: NextRequest,
   { params }: { params: { id: number } }
 ) {
-  if (params.id > 10) return NextResponse.json({ error: "User not found" });
+  if (params.id > 10) return NextResponse.json({ error: "Product not found" });
 
-  return NextResponse.json({ id: 1, name: "Sai" });
+  return NextResponse.json({ id: 1, name: "Milk", price: 5 });
 }
 
 export async function PUT(
@@ -28,10 +28,10 @@ export async function PUT(
   }
 
   if (params.id > 10)
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
   return NextResponse.json(
-    { id: 1, name: body.name.toUpperCase() },
+    { id: 1, name: body.name.toUpperCase(), price: body.price * 2 },
     { status: 201 }
   );
 }
@@ -54,7 +54,7 @@ export async function DELETE(
   }
 
   if (params.id > 10)
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
-  return NextResponse.json({ message: "User deleted" }, { status: 201 });
+  return NextResponse.json({ message: "Product deleted" }, { status: 201 });
 }
